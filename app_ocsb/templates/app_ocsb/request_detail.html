@@ -1,0 +1,368 @@
+{% extends 'app_base/base.html' %} {% load static %} {% load widget_tweaks %}
+<!-- Block page_header -->
+{% block stylesheet %} {% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}รายละเอียดคำขออนุญาตฯ {% endblock page_header %}
+{% block page_header_right %}
+  {% include "app_ocsb/include/button_request_state.html" %}
+{% endblock page_header_right %}
+
+<!-- Block page_header -->
+{% block main_content %}
+<section class="content">
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header p-2">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link active" href="#tab01" data-toggle="tab">ข้อมูลคำร้อง</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab02" data-toggle="tab">รายการบันทึก</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab03" data-toggle="tab">เอกสารแนบ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab04" data-toggle="tab">Time Line</a></li>
+      </ul>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+          <i class="fas fa-minus"></i>
+        </button>        
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-content">
+        <div class="active tab-pane" id="tab01">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+              <h4>ฤดูกาลผลิตที่ขออนุญาตฯ</h4>
+              <div class="row">
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ฤดูกาลผลิต</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.season }} (ครั้งที่ {{ query_object.season_round }})</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">เลขคำร้อง (ระบบ)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.no_request }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-3">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">เลขอนุญาต สอน.</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.no_ocsb }}</span>
+                    </div>
+                  </div>         
+                </div>
+                <div class="col-12 col-sm-3">                            
+                </div>
+              </div>       
+              </br>
+              <h4>ปริมาณขอใช้น้ำเชื่อมฯ</h4>
+              <div class="row">
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ขอใช้ Syrub (ตัน)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.total_syrup }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ขอใช้ B-molasses (ตัน)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.total_bmolasses }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ขอใช้ B-molasses (ตัน)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.total_cmolasses }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">ปริมาณขอใช้รวม (ตัน)</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ query_object.total_amount }}</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              {% comment %}  {% endcomment %}
+                </br>
+              <h4>ข้อมูลสถานประกอบการ</h4>
+              <div class="row">
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ชื่อสถานประกอบการ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.enterprise }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ผู้บันทึกคำร้อง</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.user }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">วันที่ขออนุญาตฯ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.date_request }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-3">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">เลขหนังสือ สปก.</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ query_object.no_enterprise }}</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>   
+              {% comment %}  {% endcomment %}
+            </br>
+            </div>
+            <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">  
+              <h5 class="mt-5 text-muted">จำหน่ายแก่โรงงาน</h5>
+              <ul class="list-unstyled">
+                {% for purchaser_record in purchaser_object %}
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image"></i> {{  purchaser_record.name }}</a>
+                </li>              
+                {% endfor %}           
+              </ul>
+              {% comment %}  {% endcomment %}
+              <h5 class="mt-5 text-muted">เอกสารแนบ</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> หนังสือขออนุญาต(สถานประกอบการ)</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> หนังสือประสานคณะทำงานฯ ร่วมลงพื้นที่ตรวจสอบ</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> รายงานตรวจสอบกระบวนการส่งถ่ายน้ำเชื่อมฯ</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image"></i> หนังสืออนุญาตฯ</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> อื่นๆ</a>
+                </li>
+              </ul>              
+            </div>
+          </div>
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab02">
+          <div class="row">
+            <a href="{% url 'usage-form' request_id %}">
+              <button type="button" class="btn btn-info">บันทึก รายงานผลรายวัน</button>
+            </a>
+            </br>
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>วันที่รายงาน</th>
+                  <th>โรงงานที่ได้รับอนุญาต</th>
+                  <th>โรงงานรับซื้อ</th>
+                  <th>ชนิดของน้ำเชื่อม</th>
+                  <th>เลขคำร้อง (ระบบ)</th>
+                  <th>น้ำหนัก/ปริมาณน้ำเชื่อม (ตัน)</th>
+                  <th style="width: 80px">สถานะ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for record in query_usage %}
+                <tr>
+                  <td>{{ record.date_report }}</td>
+                  <td>{{ record.enterprise }}</td>
+                  <td>{{ record.purchaser }}</td>
+                  <td>{{ record.get_syrup_type_display }}</td>
+                  <td>{{ record.quota_request }}</td>
+                  <td>{{ record.syrup_weight }}</td>
+                  <td><span class="badge bg-danger">{{ record.get_workflow_state_display }}</span></td>
+                  <td>
+                    <a href="{% url 'usage-detail' record.id %}" target="_blank">
+                      <button type="button" class="btn btn-primary mr-1">ตรวจสอบ</button>
+                    </a>
+                    {% if record.workflow_state == 0 %}
+                    <a href="{% url 'usage-update' record.id %}" target="_blank">
+                      <button type="button" class="btn btn-info">แก้ไข</button>
+                    </a>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.tab-pane -->
+        <!-- tab เอกสารแนบ -->
+        <div class="tab-pane" id="tab03">          
+          <!-- ตารางเอกสาร -->
+          <div class="row">
+            <table id="" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>เอกสาร</th>
+                  <th>ไฟล์</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>หนังสือขออนุญาต สถานประกอบการ</td>                  
+                  <td><a href="{{ MEDIA_URL }}{{ query_object.file_request }}" target="_blank">
+                    <button type="button" class="btn btn-block bg-gradient-success">
+                      Dowmload</button></a>
+                  </td>
+                </tr>    
+                <tr>
+                  <td>หนังสือประสานคณะทำงานฯ ร่วมลงพื้นที่ตรวจสอบ</td>                  
+                  <td><a href="{{ MEDIA_URL }}{{ query_object.file_sitevisit }}" target="_blank">
+                    <button type="button" class="btn btn-block bg-gradient-success">
+                      Dowmload</button></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>แบบตรวจสอบกระบวนการส่งถ่ายน้ำเชื่อมฯ</td>                  
+                  <td><a href="{{ MEDIA_URL }}{{ query_object.file_survey }}" target="_blank">
+                    <button type="button" class="btn btn-block bg-gradient-success">
+                      Dowmload</button></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>หนังสืออนุญาตฯ</td>                  
+                  <td><a href="{{ MEDIA_URL }}{{ query_object.file_approve }}" target="_blank">
+                    <button type="button" class="btn btn-block bg-gradient-success">
+                      Dowmload</button></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>เอกสารแนบ อื่นๆ</td>                  
+                  <td></td>
+                </tr>            
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.tab เอกสารแนบ -->
+        <!-- tab Time Line -->
+        <div class="tab-pane" id="tab04">
+          <div class="timeline timeline-inverse">
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-danger">
+                10 Feb. 2014
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-envelope bg-primary"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 12:05</span>
+
+                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                <div class="timeline-body">
+                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                  weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                  jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                  quora plaxo ideeli hulu weebly balihoo...
+                </div>
+                <div class="timeline-footer">
+                  <a href="#" class="btn btn-primary btn-sm">Read more</a>
+                  <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-user bg-info"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
+
+                <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
+                </h3>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-comments bg-warning"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                <div class="timeline-body">
+                  Take me to your leader!
+                  Switzerland is small and neutral!
+                  We are more like Germany, ambitious and misunderstood!
+                </div>
+                <div class="timeline-footer">
+                  <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-success">
+                3 Jan. 2014
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-camera bg-purple"></i>
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
+                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                <div class="timeline-body">
+                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="https://placehold.it/150x100" alt="...">
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <div>
+              <i class="far fa-clock bg-gray"></i>
+            </div>
+          </div>
+        </div>
+        <!-- /.tab Time Line -->
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}
+
+{% endblock scripts %}

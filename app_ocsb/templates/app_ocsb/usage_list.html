@@ -1,0 +1,79 @@
+{% extends 'app_base/base.html' %}
+
+<!-- Block stylesheet -->
+{% block stylesheet %} {% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}บันทึกการจำหน่ายน้ำเชื่อมฯ{% endblock page_header %}
+
+<!-- Block main_content -->
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"></h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>วันที่คำร้อง</th>
+                  <th>ฤดูกาลผลิตที่ขออนุญาตฯ</th>
+                  <th>เลขคำร้องจากระบบ</th>
+                  <th>สถานประกอบการ</th>
+                  <th>เลขคำร้องสถานประกอบการ</th>
+                  <th>ปริมาณขอใช้รวม (ตัน)</th>
+                  <th>ปริมาณบันทึกใช้รวม (ตัน)</th>
+                  <th style="width: 80px">สถานะ</th>
+                  <th style="text-align:center">ฟอร์ม</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for record in queryset %}
+                  {% if record.total_amount > record.total_usage %}
+                  <tr>
+                  {% else %}
+                  <tr class="table-danger">
+                  {% endif %}
+                    <td>{{ record.date_request }}</td>
+                    <td>{{ record.season }} (ครั้งที่ {{ record.season_round }})</td>
+                    <td>{{ record.no_request }}</td>
+                    <td>{{ record.enterprise }}</td>
+                    <td>{{ record.no_enterprise }}</td>
+                    <td>{{ record.total_amount }}</td>
+                    <td>{{ record.total_usage }}</td>                  
+                    <td><span class="badge bg-danger">{{ record.get_workflow_state_display }}</span></td>
+                    <td>
+                      <a href="{% url 'usage-form' record.id %}">
+                        <button type="button" class="btn btn-info">บันทึกใช้</button>
+                      </a>
+                    </td>                  
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" href="#">«</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}{% endblock scripts %}

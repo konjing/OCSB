@@ -1,0 +1,335 @@
+{% extends 'app_base/base.html' %} {% load static %} {% load widget_tweaks %}
+
+<!-- Block page_header -->
+{% block stylesheet %} {% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}แบบฟอร์มข้อมูลการจำหน่ายน้ำเชื่อมเป็นวัตถุดิบฯ{% endblock page_header %}
+
+<!-- Block page_header -->
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    <!-- New Form -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header p-2">
+            <ul class="nav nav-pills">
+              <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">กรอกข้อมูล</a></li>
+              {% comment %} <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">คำนวณ 1</a></li>
+              <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">คำนวณ 2</a></li> {% endcomment %}
+            </ul>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="active tab-pane" id="settings">
+                <form action="" method="POST">
+                  {% csrf_token %} {{ form.quota_request }} {{ form.enterprise }}
+                  <h5>ข้อมูลคำร้อง</h5>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">เลขคำร้อง (ระบบ)</label>
+                        <input typr="text" class="form-control" id="" value="{{ request_object.no_request }}" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">สถานประกอบการ/โรงงานที่ได้รับอนุญาตจำหน่าย</label>
+                        <input typr="text" class="form-control" id="" value="{{ request_object.enterprise }}" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">ผู้บันทึก</label>
+                        <input typr="text" class="form-control" id="" value="{{ request.user }}" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3"></div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h5>แบบฟอร์มการใช้น้ำเชื่อมฯ</h5>
+                  <!-- row1 -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.date_report.id_for_label }}">{{ form.date_report.label }}</label>
+                        {% render_field form.date_report class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.purchaser.id_for_label }}">{{ form.purchaser.label }}</label>
+                        {% render_field form.purchaser class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.syrup_type.id_for_label }}">{{ form.syrup_type.label }}</label>
+                        {% render_field form.syrup_type class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3"></div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row1 -->
+                  <!-- row2 -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label style="color: red" for="{{ form.syrup_valume.id_for_label }}">{{ form.syrup_valume.label }}</label>
+                        {% render_field form.syrup_valume class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.syrup_weight.id_for_label }}">{{ form.syrup_weight.label }}</label>
+                        {% render_field form.syrup_weight class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.theoretical.id_for_label }}">{{ form.theoretical.label }}</label>
+                        {% render_field form.theoretical class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.undetermine_loss.id_for_label }}">{{ form.undetermine_loss.label }}</label>
+                        {% render_field form.undetermine_loss class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row2 -->
+                  <h5>----------------------คำนวณ Syrup --------------------</h5>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.syrup_brix.id_for_label }}">{{ form.syrup_brix.label }}</label>
+                        {% render_field form.syrup_brix class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.syrup_pol.id_for_label }}">{{ form.syrup_pol.label }}</label>
+                        {% render_field form.syrup_pol class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">ค่าความชื้นน้ำเชื่อม</label>
+                        <input typr="text" class="form-control" id="" value="" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.syrup_purity.id_for_label }}">{{ form.syrup_purity.label }}</label>
+                        {% render_field form.syrup_purity|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h5>----------------------คำนวณ Raw Sugar --------------------</h5>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">ค่าบริกซ์น้ำตาลทรายดิบ</label>
+                        <input typr="text" class="form-control" id="" value="" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.rawsugar_pol.id_for_label }}">{{ form.rawsugar_pol.label }}</label>
+                        {% render_field form.rawsugar_pol class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.rawsugar_moisture.id_for_label }}">{{ form.rawsugar_moisture.label }}</label>
+                        {% render_field form.rawsugar_moisture class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.rawsugar_purity.id_for_label }}">{{ form.rawsugar_purity.label }}</label>
+                        {% render_field form.rawsugar_purity|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h5>----------------------คำนวณ Mollasses --------------------</h5>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.mollasses_brix.id_for_label }}">{{ form.mollasses_brix.label }}</label>
+                        {% render_field form.mollasses_brix class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.mollasses_pol.id_for_label }}">{{ form.mollasses_pol.label }}</label>
+                        {% render_field form.mollasses_pol class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">ค่าความชื้นกากน้ำตาล</label>
+                        <input typr="text" class="form-control" id="" value="" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.mollasses_purity.id_for_label }}">{{ form.mollasses_purity.label }}</label>
+                        {% render_field form.mollasses_purity|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h5>----------------------คำนวณ อื่นๆ --------------------</h5>
+                  {% comment %} คำนวณ อื่นๆ 2 {% endcomment %}
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.sjm.id_for_label }}">{{ form.sjm.label }}</label>
+                        {% render_field form.sjm|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.actual_sugar_recovery.id_for_label }}">{{ form.actual_sugar_recovery.label }}</label>
+                        {% render_field form.actual_sugar_recovery|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.raw_sugar_tons_pol.id_for_label }}">{{ form.raw_sugar_tons_pol.label }}</label>
+                        {% render_field form.raw_sugar_tons_pol|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group"></div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h5>----------------------ข้อมูลสำหรับการประมาณการปริมาณอ้อยที่ถูกใช้ไปในการผลิตเอทานอล --------------------</h5>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.daily_cane_input.id_for_label }}">{{ form.daily_cane_input.label }}</label>
+                        {% render_field form.daily_cane_input class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.pol_in_can.id_for_label }}">{{ form.pol_in_can.label }}</label>
+                        {% render_field form.pol_in_can class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.pol_extraction.id_for_label }}">{{ form.pol_extraction.label }}</label>
+                        {% render_field form.pol_extraction class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.loss_filter_cake.id_for_label }}">{{ form.loss_filter_cake.label }}</label>
+                        {% render_field form.loss_filter_cake class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                  <h5>---------------------- สรุป --------------------</h5>
+                  <!-- row1 -->
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="">น้ำหนักน้ำเชื่อม</label>
+                        <input typr="text" class="form-control" id="syrup_weight_show" value="" readonly="readonly" />
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.raw_sugar_tons.id_for_label }}">{{ form.raw_sugar_tons.label }}</label>
+                        {% render_field form.raw_sugar_tons|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.ton_mollasses.id_for_label }}">{{ form.ton_mollasses.label }}</label>
+                        {% render_field form.ton_mollasses|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label style="color: red" for="{{ form.density_indice.id_for_label }}">{{ form.density_indice.label }}</label>
+                        {% render_field form.density_indice|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
+                      </div>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row1 -->
+                  
+                  <button type="submit" class="btn btn-primary">บันทึกคำร้อง</button>
+                </form>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="activity">dfdfdf</div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="timeline"></div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+    </div>
+    <!-- /.New Form -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}
+<!-- page script -->
+<script src="{% static 'app_ocsb/js/usage_form.js' %}"></script>
+{% endblock scripts %}

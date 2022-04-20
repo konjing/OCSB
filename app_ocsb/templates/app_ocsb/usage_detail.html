@@ -1,0 +1,623 @@
+{% extends 'app_base/base.html' %}
+
+<!-- Block page_header -->
+{% block stylesheet %}
+  
+{% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}รายละเอียดการใช้น้ำเชื่อมฯ
+{% include "app_ocsb/include/button_usage_state.html" %}
+{% endblock page_header %}
+
+<!-- Block page_header -->
+{% block main_content %}
+<section class="content">
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header p-2">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link active" href="#tab01" data-toggle="tab">ข้อมูลการใช้น้ำเชื่อมฯ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab02" data-toggle="tab">คำนวณ อื่นๆ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab03" data-toggle="tab">เอกสารแนบ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab04" data-toggle="tab">Time Line</a></li>
+      </ul>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+          <i class="fas fa-minus"></i>
+        </button>        
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-content">
+        <div class="active tab-pane" id="tab01">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
+              <h4>ข้อมูลเบื้องต้น</h4>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">เลขคำร้องจากระบบ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.quota_request }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">โรงงานผลิตน้ำตาล (จำหน่าย)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.enterprise }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">โรงงานผลิตเอทานอล (รับซื้อ)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.purchaser }}</span>
+                    </div>
+                  </div>         
+                </div>              
+              </div>
+              <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">วันที่รายงาน</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.date_report }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">    
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">ชนิดของน้ำเชื่อม</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.get_syrup_type_display }}</span>
+                      </div>
+                    </div>          
+                  </div>
+                  <div class="col-12 col-sm-4">     
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">น้ำหนัก/ปริมาณน้ำเชื่อม (ตัน)</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.syrup_weight }}</span>
+                      </div>
+                    </div>         
+                  </div>                
+              </div>
+              </br>    
+              
+              <h4>การคำนวณของบริษัท</h4>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Raw Sugar (Tons)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.raw_sugar_tons_ent }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Mollasses (Tons)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_mollasses_ent }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                        
+                </div>              
+              </div>
+              <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">ส่วนต่าง Raw Sugar (Tons) (สอน.-บริษัท)</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.diff_raw_sugar }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">    
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">วนต่าง Ton Mollasses (Tons) (สอน.-บริษัท)</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.diff_ton_mollasses }}</span>
+                      </div>
+                    </div>          
+                  </div>
+                  <div class="col-12 col-sm-4">     
+                            
+                  </div>                
+              </div>
+              </br>
+              <h4>คำนวณ Syrup</h4>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ค่าบริกซ์น้ำเชื่อม</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.syrup_brix }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ค่าโพลน้ำเชื่อม</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.syrup_pol }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ความบริสุทธิ์ของน้ำเชื่อม</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.syrup_purity }}</span>
+                    </div>
+                  </div>         
+                </div>              
+              </div>
+              </br>
+              <h4>คำนวณ Raw Sugar</h4>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ค่าโพลน้ำตาลทรายดิบ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.rawsugar_pol }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ค่าความชื้นน้ำตาลทรายดิบ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.rawsugar_moisture }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ความบริสุทธิ์น้ำตาลทรายดิบ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.rawsugar_purity }}</span>
+                    </div>
+                  </div>         
+                </div>              
+              </div>
+              </br>
+              <h4>คำนวณ Mollasses</h4>            
+              <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">ค่าบริกซ์กากน้ำตาล</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.mollasses_brix }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">    
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">ค่าโพลกากน้ำตาล</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.mollasses_pol }}</span>
+                      </div>
+                    </div>          
+                  </div>
+                  <div class="col-12 col-sm-4">     
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">ความบริสุทธิ์ของกากน้ำตาล</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.mollasses_purity }}</span>
+                      </div>
+                    </div>         
+                  </div>                
+              </div>
+              </br>
+            </div>          
+          </div>
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab02">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
+              <h4>คำนวณ อื่นๆ</h4>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Actual to Theoretical Recovery</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.theoretical }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ร้อยละของการสูญเสียโดยไม่ทราบสาเหตุ</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.undetermine_loss }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ปริมาณอ้อยทั้งหมดที่เข้าหีบประจำวัน (ตัน)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.daily_cane_input }}</span>
+                    </div>
+                  </div>         
+                </div>              
+              </div>
+              <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">น้ำตาลที่ควรจะผลิตได้ในรูป S-J-M</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.sjm }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">    
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">Actual Sugar Recovery</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.actual_sugar_recovery }}</span>
+                      </div>
+                    </div>          
+                  </div>
+                  <div class="col-12 col-sm-4">     
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">Raw Sugar (Tons Pol)</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{ usage_object.raw_sugar_tons_pol }}</span>
+                      </div>
+                    </div>         
+                  </div>                
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ร้อยละของค่าโพลในอ้อย</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.pol_in_can }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ร้อยละของ Pol Extraction</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.pol_extraction }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ร้อยละของการสูญเสียน้ำตาลในกากตะกอนกรอง</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.loss_filter_cake }}</span>
+                    </div>
+                  </div>         
+                </div>                
+                </div>
+              </br>    
+              <h4>แสดงสรุป</h4>
+              <!-- แสดงสรุป Row1 -->
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ดัชนีความหนาแน่น</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.density_indice }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ปริมาณน้ำเชื่อมที่ผลิตเป็นเอทานอล (ลบ.ม.)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.syrup_valume }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol  Mollasses</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_mollasses }}</span>
+                    </div>
+                  </div>
+                </div>              
+              </div>
+              <!-- แสดงสรุป Row2 -->
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol Syrup</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_syrup }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol Raw Sugar</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_rawsuger }}</span>
+                    </div>
+                  </div>          
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Undetermine Loss</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_under_loss }}</span>
+                    </div>
+                  </div>         
+                </div>              
+              </div>
+              <!-- แสดงสรุป Row3 -->
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol Daily Cane Input</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_daily }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol Mixed Juice</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_mixed }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol Filter Cake</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_filter }}</span>
+                    </div>
+                  </div>
+                </div>              
+              </div>
+              <!-- /แสดงสรุป Row3 -->
+              <!-- แสดงสรุป Row4 -->
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Pol Clearified Juice</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_pol_clearified }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Raw Syrup</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_raw_syrup }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ratio of Raw Syup per Cane</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ratio_raw_cane }}</span>
+                    </div>
+                  </div>
+                </div>              
+              </div>
+              <!-- /แสดงสรุป Row4 -->
+              <h4>ไฮไลท์</h4>
+              <!-- ไฮไลท์ Row1 -->
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ปริมาณน้ำตาลทรายดิบที่ผลิตได้/Raw Sugar (Tons)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.raw_sugar_tons }}</span>
+                    </div>
+                  </div>  
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Ton Mollasses (Tons)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_mollasses }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">     
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ปริมาณน้ำเชื่อมที่ผลิตเป็นเอทานอล (ลบ.ม.)</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.syrup_valume }}</span>
+                    </div>
+                  </div>       
+                </div>              
+              </div>
+              <!-- /ไฮไลท์ Row1 -->
+              <!-- ไฮไลท์ Row2 -->
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ปริมาณน้ำตาลทรายดิบที่ผลิตได้</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.raw_sugar_tons }}</span>
+                    </div>
+                  </div>  
+                </div>
+                <div class="col-12 col-sm-4">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ปริมาณกากน้ำตาลที่ผลิตได้</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.ton_mollasses }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">     
+                        
+                </div>              
+              </div>
+              <!-- /ไฮไลท์ Row2 -->
+              <!-- ไฮไลท์ Row3 -->
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ประสิทธิภาพการผลิตน้ำตาล กก/ตันอ้อย</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.efficiency_raw }}</span>
+                    </div>
+                  </div> 
+                </div>
+                <div class="col-12 col-sm-6">    
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ประสิทธิภาพการผลิตกากน้ำตาล กก/ตันอ้อย</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ usage_object.efficiency_mollasses }}</span>
+                    </div>
+                  </div>
+                </div>                                    
+              </div>
+              <!-- /ไฮไลท์ Row3 -->
+            </div>          
+          </div>
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab03">
+          <div class="form-group">
+            <!-- <label for="customFile">Custom File</label> -->
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="customFile">
+              <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+          </div>
+          <!-- ตารางเอกสาร -->
+          <div class="row">
+            <table id="" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>เอกสาร</th>
+                  <th>ไฟล์</th>
+                </tr>
+              </thead>
+              <tbody>                
+                <tr>
+                  <td>รายงานผลรายวัน</td>                  
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>เอกสารแนบ อื่นๆ</td>                  
+                  <td></td>
+                </tr>            
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.tab-pane -->
+        <div class="tab-pane" id="tab04">
+          <div class="timeline timeline-inverse">
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-danger">
+                10 Feb. 2014
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-envelope bg-primary"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 12:05</span>
+
+                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                <div class="timeline-body">
+                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                  weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                  jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                  quora plaxo ideeli hulu weebly balihoo...
+                </div>
+                <div class="timeline-footer">
+                  <a href="#" class="btn btn-primary btn-sm">Read more</a>
+                  <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-user bg-info"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
+
+                <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
+                </h3>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-comments bg-warning"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                <div class="timeline-body">
+                  Take me to your leader!
+                  Switzerland is small and neutral!
+                  We are more like Germany, ambitious and misunderstood!
+                </div>
+                <div class="timeline-footer">
+                  <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <!-- timeline time label -->
+            <div class="time-label">
+              <span class="bg-success">
+                3 Jan. 2014
+              </span>
+            </div>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <div>
+              <i class="fas fa-camera bg-purple"></i>
+              <div class="timeline-item">
+                <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
+                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+                <div class="timeline-body">
+                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="https://placehold.it/150x100" alt="...">
+                  <img src="https://placehold.it/150x100" alt="...">
+                </div>
+              </div>
+            </div>
+            <!-- END timeline item -->
+            <div>
+              <i class="far fa-clock bg-gray"></i>
+            </div>
+          </div>
+        </div>
+        <!-- /.tab-pane -->
+      </div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</section>
+  <!-- /.content -->
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}{% endblock scripts %}

@@ -1,0 +1,188 @@
+{% extends 'app_base/base.html' %}
+
+<!-- Block page_header -->
+{% block stylesheet %} {% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}DashBoard (โรงงาน){% endblock page_header %}
+
+<!-- Block page_header -->
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    {% for request_record in queryset %}
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">ปีการผลิตที่ {{ request_record.season }} รอบที่ {{ request_record.season_round }}</h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ request_record.total_usage_syrup }}/{{ request_record.total_syrup }}</h3>
+
+                <p>ปริมาณน้ำเชื่อม Syrub (ตัน)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ request_record.total_usage_bmolasses }}/{{ request_record.total_bmolasses }}<sup style="font-size: 20px"></sup></h3>
+
+                <p>ปริมาณน้ำเชื่อม B-molasses (ตัน)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ request_record.total_usage_cmolasses }}/{{ request_record.total_cmolasses }}</h3>
+
+                <p>ปริมาณน้ำเชื่อม C-molasses (ตัน)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ request_record.total_usage }}/{{ request_record.total_amount }}</h3>
+
+                <p>ปริมาณน้ำเชื่อมทั้งหมด (ตัน)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer"></div>
+    </div>
+    {% endfor %}
+
+    <!-- Main row (Table List) -->
+    <div class="row">
+      <!-- Left Table -->
+      <section class="col-lg-7 connectedSortable ui-sortable">
+        <div class="card">
+          <div class="card-header border-0">
+            <h3 class="card-title">บันทึกการใช้น้ำเชื่อมฯ (10 รายการล่าสุด)</h3>
+            <div class="card-tools">
+              <a href="#" class="btn btn-tool btn-sm">
+                <i class="fas fa-download"></i>
+              </a>
+              <a href="#" class="btn btn-tool btn-sm">
+                <i class="fas fa-bars"></i>
+              </a>
+            </div>
+          </div>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-striped table-valign-middle">
+              <thead>
+                <tr>
+                  <th>วันที่รายงาน</th>
+                  <th>โรงงานรับซื้อ</th>
+                  <th>ชนิดน้ำเชื่อม</th>
+                  <th>น้ำหนัก (ตัน)</th>
+                  <th>Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for usage_record in queryset_usage %}
+                <tr>
+                  <td>{{ usage_record.date_report }}</td>
+                  <td>{{ usage_record.purchaser }}</td>
+                  <td>{{ usage_record.get_syrup_type_display }}</td>
+                  <td>{{ usage_record.syrup_weight }}</td>
+                  <td>
+                    <a href="{% url 'usage-detail' usage_record.id %}" target="_blank" class="text-muted">
+                      <i class="fas fa-search"></i>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <!-- Right Table -->
+      <section class="col-lg-5 connectedSortable ui-sortable">
+        <div class="card">
+          <div class="card-header border-0">
+            <h3 class="card-title">รวมจำหน่ายน้ำเชื่อมฯ แยกตามโรงงาน</h3>
+            <div class="card-tools">
+              <a href="#" class="btn btn-tool btn-sm">
+                <i class="fas fa-download"></i>
+              </a>
+              <a href="#" class="btn btn-tool btn-sm">
+                <i class="fas fa-bars"></i>
+              </a>
+            </div>
+          </div>
+          <div class="card-body table-responsive p-0">
+            <table class="table table-striped table-valign-middle">
+              <thead>
+                <tr>
+                  <th>โรงงานรับซื้อ</th>
+                  <th>น้ำหนักรวม (ตัน)</th>
+                  <th>More</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sum_usage in queryset_sum_usage %}
+                <tr>
+                  <td>{{ sum_usage.purchaser__name }}</td>
+                  <td>{{ sum_usage.syrup_weight__sum }}</td>
+                  <td>
+                    <a href="#" class="text-muted">
+                      <i class="fas fa-search"></i>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}{% endblock scripts %}

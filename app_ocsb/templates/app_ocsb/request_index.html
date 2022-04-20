@@ -1,0 +1,97 @@
+{% extends 'app_base/base.html' %}
+
+<!-- Block page_header -->
+{% block stylesheet %} {% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}ขออนุญาตฯ{% endblock page_header %} 
+{% block page_header_right %}
+<a class="btn btn-info" href="{% url 'request-form' %}">
+  <i class="fas fa-plus"> </i>
+  เพิ่มคำขอฯ
+</a>
+{% endblock page_header_right %}
+<!-- Block page_header -->
+{% block main_content %}
+<section class="content">
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">รายการขออนุญาตฯ (ยังไม่ปิด)</h3>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped projects">
+        <thead>
+          <tr>
+            <th>ชื่อโรงงาน</th>
+            <th>วันที่ขออนุญาตฯ</th>
+            <th>เลขคำร้อง (ระบบ)</th>
+            <th style="width: 15%">Syrup (ตัน)</th>
+            <th style="width: 15%">B-molasses (ตัน)</th>
+            <th style="width: 15%">C-molasses (ตัน)</th>
+            <th class="text-center">สถานะ</th>
+            <th style="width: 20%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in queryset %}
+          <tr>
+            <td>{{ record.enterprise }}</td>
+            <td><a>{{ record.date_request }}</a></td>
+            <td>{{ record.no_request }}</td>
+            <td class="project_progress">
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: {{ record.percen_usage_syrup }}%"></div>
+              </div>
+              <small> {{ record.total_usage_syrup }}/{{ record.total_syrup }} ({{ record.percen_usage_syrup }} %) </small>
+            </td>
+            <td class="project_progress">
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: {{ record.percen_usage_bmolasses }}%"></div>
+              </div>
+              <small> {{ record.total_usage_bmolasses }}/{{ record.total_bmolasses }} ({{ record.percen_usage_bmolasses }} %) </small>
+            </td>
+            <td class="project_progress">
+              <div class="progress progress-sm">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: {{ record.percen_usage_cmolasses }}%"></div>
+              </div>
+              <small> {{ record.total_usage_cmolasses }}/{{ record.total_cmolasses }} ({{ record.percen_usage_cmolasses }} %) </small>
+            </td>
+            <td class="project-state">
+              <span class="badge badge-success">{{ record.get_workflow_state_display }}</span>
+            </td>
+            <td class="project-actions text-right">
+              <a class="btn btn-primary btn-sm" href="{% url 'request-detail' record.id %}">
+                <i class="fas fa-folder"> </i>
+                ข้อมูล
+              </a>
+              {% if record.workflow_state == 0 %}
+              <a class="btn btn-info btn-sm" href="{% url 'request-update' record.id %}">
+                <i class="fas fa-pencil-alt"> </i>
+                แก้ไข
+              </a>
+              {% endif %}
+              <a class="btn btn-danger btn-sm" href="#">
+                <i class="fas fa-trash"> </i>
+                ขอปิด
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</section>
+<!-- /.content -->
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}{% endblock scripts %}

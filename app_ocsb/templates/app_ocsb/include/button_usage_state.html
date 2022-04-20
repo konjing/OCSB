@@ -1,0 +1,35 @@
+{% if workflow_state == 0 %}
+<a href="{% url 'usage-state-draft' usage_id %}">
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+    <i class="fas fa-download"></i> ส่งตรวจสอบ 1</button>
+</a>
+{% elif workflow_state == 1 %}
+<a href="{% url 'usage-state-review1' usage_id %}">
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ส่งตรวจสอบ 2</button>
+</a>
+{% elif workflow_state == 2 %}
+<a href="{% url 'usage-state-review2' usage_id %}">
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ส่งตรวจสอบ 3</button>
+</a>
+{% elif workflow_state == 3 %}
+<a href="{% url 'usage-state-review3' usage_id %}">
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ส่งตรวจสอบ 4</button>
+</a>
+{% elif workflow_state == 4 %}
+<a href="{% url 'usage-state-review4' usage_id %}">
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ส่งตรวจสอบ 5</button>
+</a>
+{% elif workflow_state == 5 %}
+<a href="{% url 'usage-state-review5' usage_id %}">
+  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ผ่านตรวจสอบ</button>
+</a>
+<a href="{% url 'usage-state-reject' usage_id %}">
+    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
+        <i class="fas fa-download"></i> ส่งแก้ไข</button>
+  </a>
+{% endif %}

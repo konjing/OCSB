@@ -1,0 +1,158 @@
+{% extends 'app_base/base.html' %} 
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- Block page_header -->
+{% block stylesheet %} {% endblock stylesheet %}
+
+<!-- Block page_header -->
+{% block page_header %}
+  แบบฟอร์มขออนุญาตฯ
+{% endblock page_header %}
+
+<!-- Block page_header -->
+{% block main_content %}
+<section class="content">
+  <div class="container-fluid">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title"></h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <h5>ข้อมูลสถานประกอบการ</h5>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="{{ form.user.id_for_label }}">{{ form.user.label }}</label>
+                <input typr="text" class="form-control is-warning init-warn" id="id_user" value="{{ request.user.username }}" readonly="readonly">
+                <input type="hidden" name="user" id="id_user" value="{{ request.user.id }}" >
+              </div>              
+              <div class="form-group">
+                <label>{{ form.date_request.label }}</label>
+                  <div class="input-group date" id="{{ form.date_request.id_for_label }}" data-target-input="nearest">
+                      {% render_field form.date_request class="form-control datetimepicker-input is-warning init-warn" data-target="#id_date_request" %}
+                      <div class="input-group-append" data-target="#id_date_request" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="{{ form.enterprise.id_for_label }}">{{ form.enterprise.label }}</label>
+                {% if user_group == 'admin' %}
+                  {% render_field form.enterprise class="form-control" %}
+                {% elif user_group == 'ent_officer' %}
+                  <input typr="text" class="form-control is-warning init-warn" id="id_enterprise" value="{{ user_enterprise.name }}" readonly="readonly">
+                  <input type="hidden" name="enterprise" id="id_enterprise" value="{{ user_enterprise.id }}" >
+                {% endif %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.no_enterprise.id_for_label }}">{{ form.no_enterprise.label }}</label>
+                {% render_field form.no_enterprise class="form-control" placeholder=""%}
+              </div>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+          <h5>ข้อมูลคำขออนุญาตฯ</h5>
+          <div class="row">
+            <!-- left column -->
+            <div class="col-12 col-sm-6">
+              <div class="form-group">
+                <label for="{{ form.no_request.id_for_label }}">{{ form.no_request.label }}</label>
+                {% render_field form.no_request class="form-control is-warning init-warn" placeholder="โปรดระบุ"%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.total_syrup.id_for_label }}">{{ form.total_syrup.label }}</label>
+                {% render_field form.total_syrup class="form-control" placeholder="หน่วยตัน"%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.total_cmolasses.id_for_label }}">{{ form.total_cmolasses.label }}</label>
+                {% render_field form.total_cmolasses class="form-control" placeholder="หน่วยตัน"%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.file_request.id_for_label }}">{{ form.file_request.label }}</label>
+                {% render_field form.file_request class="form-control" placeholder=""%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.file_sitevisit.id_for_label }}">{{ form.file_sitevisit.label }}</label>
+                {% render_field form.file_sitevisit class="form-control" placeholder=""%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.file_survey.id_for_label }}">{{ form.file_survey.label }}</label>
+                {% render_field form.file_survey class="form-control" placeholder=""%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.file_approve.id_for_label }}">{{ form.file_approve.label }}</label>
+                {% render_field form.file_approve class="form-control" placeholder=""%}
+              </div>
+            </div>
+            <!-- /.col -->
+            <!-- right column -->
+            <div class="col-12 col-sm-6">
+              <div class="row">
+                <div class="col-9">
+                  <div class="form-group">
+                    <label for="{{ form.season.id_for_label }}">{{ form.season.label }}</label>
+                    {% render_field form.season class="form-control" placeholder=""%}
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-group">
+                    <label for="{{ form.is_season.id_for_label }}">{{ form.is_season.label }}</label>
+                    {% render_field form.is_season class="form-control" placeholder=""%}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="{{ form.total_bmolasses.id_for_label }}">{{ form.total_bmolasses.label }}</label>
+                {% render_field form.total_bmolasses class="form-control" placeholder="หน่วยตัน"%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.total_amount.id_for_label }}">{{ form.total_amount.label }}</label>
+                {% render_field form.total_amount|append_attr:"readonly:readonly" class="form-control" placeholder="หน่วยตัน"%}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.purchasers.id_for_label }}">{{ form.purchasers.label }}</label>
+                {% render_field form.purchasers class="form-control django-select2" %}
+              </div>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+          <button type="submit" class="btn btn-primary">บันทึกคำร้อง</button>
+        </form>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer"></div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+{% endblock main_content %}
+
+<!-- Block scripts -->
+{% block scripts %}
+<!-- InputMask -->
+<script src= "{% static 'app_base/adminlte/plugins/moment/moment.min.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'app_base/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- page script -->
+<script src= "{% static 'app_ocsb/js/request_form.js' %}"></script>
+
+
+{% endblock scripts %}
