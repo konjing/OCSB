@@ -10,6 +10,7 @@ from app_ocsb.views import dashboard_view as db
 from app_ocsb.views import report_view as report
 
 urlpatterns = [
+    path('', db.dashboard_ent_view, name='home'),
     # ------------------- Dash Board ----------
     path('dashboard-ent/', db.dashboard_ent_view, name='dashboard-ent'),
     path('dashboard-ocsb/', db.dashboard_ocsb_view, name='dashboard-ocsb'),

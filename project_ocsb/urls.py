@@ -28,7 +28,7 @@ urlpatterns = [
     path("select2/", include("django_select2.urls")),
 
     path('base/', include('app_base.urls')),
-    path('ocsb/', include('app_ocsb.urls')),
+    path('', include('app_ocsb.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
