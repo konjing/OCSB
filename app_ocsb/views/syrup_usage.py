@@ -170,10 +170,13 @@ def detail_usage_view(request, usage_id):
     """ Detail Syrup Usage """
     usage_object = get_object_or_404(SyrupUsage, pk=usage_id)
     workflow_state = usage_object.workflow_state
+    user_group = request.user.groups.all()[0].name
 
     context = {'usage_object': usage_object,
                'usage_id': usage_id,
-               'workflow_state': workflow_state}
+               'workflow_state': workflow_state,
+               'user_group': user_group
+               }
     return render(request, 'app_ocsb/usage_detail.html', context)
 
 

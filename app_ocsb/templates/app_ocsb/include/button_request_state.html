@@ -1,29 +1,77 @@
-{% if workflow_state == 0 %}
-<a href="{% url 'request-state-sent' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> ส่งพิจารณา</button>
-</a>
-{% elif workflow_state == 1 %}
-<a href="{% url 'request-state-reviewed-new' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> รับพิจารณา(New)</button>
-</a>
-|
-<a href="{% url 'request-state-reviewed-new' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> รับพิจารณา(Old)</button>
-</a>
-{% elif workflow_state == 2 %}
-<a href="{% url 'request-state-sitevisit' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> บันทึกลงพื้นที่</button>
-</a>
-{% elif workflow_state == 3 %}
-<a href="{% url 'request-state-accept' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> Accept</button>
-</a>
-|
-<a href="{% url 'request-state-reject' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> Reject</button>
-</a>
-{% elif workflow_state == 4 %}
-<a href="{% url 'request-state-close' request_id %}">
-  <button type="button" class="btn btn-primary" style="margin-right: 5px"><i class="fas fa-download"></i> Close</button>
-</a>
+{% if user_group == 'admin' %} 
+  {% if workflow_state == 0 %}
+  <a href="{% url 'request-state-sent' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ส่งพิจารณา</button>
+  </a>
+  {% elif workflow_state == 1 %}
+  <a href="{% url 'request-state-reviewed-new' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> รับพิจารณา(New)</button>
+  </a>  |
+  <a href="{% url 'request-state-reviewed-new' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> รับพิจารณา(Old)</button>
+  </a>
+  {% elif workflow_state == 2 %}
+  <a href="{% url 'request-state-sitevisit' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> บันทึกลงพื้นที่</button>
+  </a>
+  {% elif workflow_state == 3 %}
+  <a href="{% url 'request-state-accept' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> Accept</button>
+  </a>  |
+  <a href="{% url 'request-state-reject' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> Reject</button>
+  </a>
+  {% elif workflow_state == 4 %}
+  <a href="{% url 'request-state-close' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> Close</button>
+  </a>
+  {% endif %}
+{% endif %}
+
+{% if user_group == 'ent_officer' %} 
+  {% if workflow_state == 0 %}
+  <a href="{% url 'request-state-sent' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> ส่งพิจารณา</button>
+  </a>  
+  {% endif %}
+{% endif %}
+
+{% if user_group == 'ocsb_officer' %}
+  {% if workflow_state == 1 %}
+  <a href="{% url 'request-state-reviewed-new' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> รับพิจารณา(New)</button>
+  </a>  |
+  <a href="{% url 'request-state-reviewed-new' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> รับพิจารณา(Old)</button>
+  </a>
+  {% elif workflow_state == 2 %}
+  <a href="{% url 'request-state-sitevisit' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> บันทึกลงพื้นที่</button>
+  </a>
+  {% elif workflow_state == 3 %}
+  <a href="{% url 'request-state-accept' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> Accept</button>
+  </a>  |
+  <a href="{% url 'request-state-reject' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> Reject</button>
+  </a>
+  {% elif workflow_state == 4 %}
+  <a href="{% url 'request-state-close' request_id %}">
+    <button type="button" class="btn btn-primary" style="margin-right: 5px">
+      <i class="fas fa-download"></i> Close</button>
+  </a>
+  {% endif %}
 {% endif %}

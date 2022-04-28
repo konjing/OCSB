@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 import sweetify
 
 from app_ocsb.form.form import RequestFormStep1
+from app_ocsb.form.form_request import RequestFormFile
 from app_ocsb.models import QuotaRequest, SyrupUsage
 from app_base.models import Purchaser
 from app_base.decorators import allowed_users
@@ -95,13 +96,24 @@ def request_detail_view(request, request_id):
     query_usage = SyrupUsage.objects.filter(quota_request=request_id).order_by('date_report')
     purchaser_object = Purchaser.objects.filter(quotarequest__id=request_id)
     workflow_state = query_object.workflow_state
+    user_group = request.user.groups.all()[0].name
+    form = RequestFormFile(instance=query_object)
+
+    if request.method == 'POST':
+        form = RequestFormFile(request.POST, request.FILES, instance=query_object)
+        if form.is_valid():
+            form.save()
+            return redirect('request-detail', request_id=request_id)
 
     context = {
         'query_object': query_object,
         'query_usage': query_usage,
         'purchaser_object': purchaser_object,
         'workflow_state': workflow_state,
-        'request_id': request_id}
+        'request_id': request_id,
+        'user_group':user_group,
+        'form': form,
+        }
     return render(request, 'app_ocsb/request_detail.html', context)
 
 @login_required(login_url='login')

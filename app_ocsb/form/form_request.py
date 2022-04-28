@@ -1,7 +1,12 @@
 """ Form for Request Quota """
-from django import forms
+from django.forms import ModelForm
 from app_ocsb.models import QuotaRequest
 
-class CreateRequestForm(forms.Form):
-    """ ฟอร์มสร้างคำขออนุญาตฯ จากสถานประกอบการ """
-    
+class RequestFormFile(ModelForm):
+    """ Upload File : Request Form """
+    class Meta:
+        """ Meta Form """
+        model = QuotaRequest
+        fields = [
+            'file_request', 'file_sitevisit', 'file_survey', 'file_approve'
+        ]
