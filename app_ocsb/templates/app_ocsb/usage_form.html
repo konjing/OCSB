@@ -78,7 +78,12 @@
                       </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="{{ form.undetermine_loss.id_for_label }}">{{ form.undetermine_loss.label }}</label>
+                        {% render_field form.undetermine_loss class="form-control" placeholder=""%}
+                      </div>
+                    </div>
                     <!-- /.col -->
                   </div>
                   <!-- /.row1 -->
@@ -106,10 +111,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
-                      <div class="form-group">
-                        <label for="{{ form.undetermine_loss.id_for_label }}">{{ form.undetermine_loss.label }}</label>
-                        {% render_field form.undetermine_loss class="form-control" placeholder=""%}
-                      </div>
+                      
                     </div>
                     <!-- /.col -->
                   </div>
@@ -277,8 +279,6 @@
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label for="">น้ำหนักน้ำเชื่อม</label>
-                        <input typr="text" class="form-control" id="syrup_weight_show" value="" readonly="readonly" />
                       </div>
                     </div>
                     <!-- /.col -->
@@ -298,9 +298,7 @@
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label style="color: red" for="{{ form.density_indice.id_for_label }}">{{ form.density_indice.label }}</label>
-                        {% render_field form.density_indice|append_attr:"readonly:readonly" class="form-control" placeholder=""%}
-                      </div>
+                       </div>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -310,7 +308,7 @@
                 </form>
               </div>
               <!-- /.tab-pane -->
-              <div class="tab-pane" id="activity">dfdfdf</div>
+              <div class="tab-pane" id="activity"></div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="timeline"></div>
               <!-- /.tab-pane -->
@@ -330,6 +328,9 @@
 
 <!-- Block scripts -->
 {% block scripts %}
+<!-- InputMask -->
+{% comment %} <script src= "{% static 'app_base/adminlte/plugins/moment/moment.min.js' %}"></script>
+<script src="{% static 'app_base/adminlte/plugins/inputmask/jquery.inputmask.min.js' %}"></script> {% endcomment %}
 <!-- page script -->
 <script src="{% static 'app_ocsb/js/usage_form.js' %}"></script>
 {% endblock scripts %}

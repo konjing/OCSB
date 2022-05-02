@@ -2,6 +2,7 @@
 from django.conf import settings
 from django.db import models
 from django_fsm import FSMIntegerField, transition
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from app_base.models import Enterprise, Season, Purchaser
 
@@ -246,7 +247,8 @@ class SyrupUsage(models.Model):
         max_digits=9, null=True, blank=True)
     # ---------------------- ข้อมูลน้ำเชื่อม (syrup)
     syrup_brix = models.DecimalField(
-        verbose_name='ค่าบริกซ์น้ำเชื่อม', max_digits=4, decimal_places=2)
+        verbose_name='ค่าบริกซ์น้ำเชื่อม', max_digits=4, decimal_places=2,
+        validators=[MinValueValidator(57), MaxValueValidator(100)])
     syrup_pol = models.DecimalField(
         verbose_name='ค่าโพลน้ำเชื่อม', max_digits=4, decimal_places=2)
     syrup_purity = models.DecimalField(

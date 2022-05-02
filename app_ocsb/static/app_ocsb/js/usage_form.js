@@ -1,12 +1,28 @@
 $(document).ready(function () {
   // init
+  $("#id_undetermine_loss").val(0).prop("readonly", true);
+  $("#id_syrup_valume").val(0).prop("readonly", true);
+
+  // $("#id_syrup_brix").inputmask("numeric", {
+  //   min: 57,
+  //   max: 100
+  // });
 
   //Date picker, date_request
+  $("#id_syrup_type").change(function () {
+    var val_syrup_type = $('#id_syrup_type').find(":selected").val();
+    if (val_syrup_type == 1) {
+      $("#id_undetermine_loss").prop("readonly", false);
+    }
+    return true;
+  });
+
 
   $("#id_syrup_weight, #id_syrup_brix, #id_syrup_pol, #id_rawsugar_moisture, #id_rawsugar_pol," +
-      "#id_mollasses_brix, #id_mollasses_pol, #id_theoretical," + 
-      "#id_undetermine_loss, #id_daily_cane_input, #id_pol_in_can," +
-      "#id_pol_extraction, #id_loss_filter_cake").change(function () {
+      "#id_mollasses_brix, #id_mollasses_pol, #id_theoretical"
+      //"#id_undetermine_loss, #id_daily_cane_input, #id_pol_in_can," +
+      //"#id_pol_extraction, #id_loss_filter_cake"
+      ).change(function () {
       //"#id_raw_sugar_tons_ent, #id_ton_mollasses_ent"
     var syrup_weight = $("#id_syrup_weight").val();
     var syrup_brix = $("#id_syrup_brix").val();
@@ -52,20 +68,20 @@ $(document).ready(function () {
     $("#id_raw_sugar_tons").val(parseFloat(raw_sugar_tons).toFixed(2));
 
     //Ton Pol Syrup
-    // var ton_pol_syrup = syrup_weight * syrup_pol /100;
-    // $("#id_ton_pol_syrup").val(parseFloat(ton_pol_syrup).toFixed(2));
+    var ton_pol_syrup = syrup_weight * syrup_pol /100;
+    $("#id_ton_pol_syrup").val(parseFloat(ton_pol_syrup).toFixed(2));
 
     //Ton Pol Raw Sugar
-    // var ton_pol_rawsuger = raw_sugar_tons_pol;
-    // $("#id_ton_pol_rawsuger").val(parseFloat(ton_pol_rawsuger).toFixed(2));
+    var ton_pol_rawsuger = raw_sugar_tons_pol;
+    $("#id_ton_pol_rawsuger").val(parseFloat(ton_pol_rawsuger).toFixed(2));
 
     //Ton Undetermine Loss
-    // var ton_under_loss = undetermine_loss / 100 * ton_pol_syrup;
-    // $("#id_ton_under_loss").val(parseFloat(ton_under_loss).toFixed(2));
+    var ton_under_loss = undetermine_loss / 100 * ton_pol_syrup;
+    $("#id_ton_under_loss").val(parseFloat(ton_under_loss).toFixed(2));
 
     //Ton Pol Mollasses
-    // var ton_pol_mollasses = (ton_pol_syrup - ton_pol_rawsuger - ton_under_loss);
-    // $("#id_ton_pol_mollasses").val(parseFloat(ton_pol_mollasses).toFixed(2));
+    var ton_pol_mollasses = (ton_pol_syrup - ton_pol_rawsuger - ton_under_loss);
+    $("#id_ton_pol_mollasses").val(parseFloat(ton_pol_mollasses).toFixed(2));
 
     //Ton Mollasses (Tons)
     var ton_mollasses = ton_pol_mollasses / (mollasses_pol/100);
@@ -116,8 +132,6 @@ $(document).ready(function () {
     // var diff_ton_mollasses = ton_mollasses - ton_mollasses_ent;
     // $("#id_diff_ton_mollasses").val(parseFloat(diff_ton_mollasses).toFixed(3));
     
-    $("#syrup_weight_show").val(syrup_weight);
-
     return true;
   });
 });

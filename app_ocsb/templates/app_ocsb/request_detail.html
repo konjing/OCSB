@@ -57,7 +57,19 @@
                     </div>
                   </div>         
                 </div>
-                <div class="col-12 col-sm-3">                            
+                <div class="col-12 col-sm-3">       
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">ในหรือนอกฤดูการผลิต</span>
+                      <span class="info-box-number text-center text-muted mb-0">
+                        {% if query_object.is_season == 0 %}
+                        ในฤดูการผลิต
+                        {% else %}
+                        นอกฤดูการผลิต
+                        {% endif %}
+                      </span>
+                    </div>
+                  </div>       
                 </div>
               </div>       
               </br>
@@ -144,26 +156,7 @@
                   <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image"></i> {{  purchaser_record.name }}</a>
                 </li>              
                 {% endfor %}           
-              </ul>
-              {% comment %}  {% endcomment %}
-              <h5 class="mt-5 text-muted">เอกสารแนบ</h5>
-              <ul class="list-unstyled">
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> หนังสือขออนุญาต(สถานประกอบการ)</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> หนังสือประสานคณะทำงานฯ ร่วมลงพื้นที่ตรวจสอบ</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i> รายงานตรวจสอบกระบวนการส่งถ่ายน้ำเชื่อมฯ</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image"></i> หนังสืออนุญาตฯ</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i> อื่นๆ</a>
-                </li>
-              </ul>              
+              </ul>                           
             </div>
           </div>
         </div>
@@ -301,7 +294,7 @@
                       <label for="{{ form.file_survey.id_for_label }}">{{ form.file_survey.label }}</label>
                       {% render_field form.file_survey class="form-control" placeholder=""%}
                     </div>
-                    <div class="form-group">
+                    <div class="form-groญิงสาวชื่อตอง ได้ให้สัมภาษณ์สื่อช่องหนึ่งถึงเหตุการณ์ที่เกิดขึ้นว่า ตนไม่อยากพูดเรื่องนี้แล้ว ซึ่งจริงๆ แล้วตนเองป่วยเป็นโรคไบโพลup">
                       <label for="{{ form.file_approve.id_for_label }}">{{ form.file_approve.label }}</label>
                       {% render_field form.file_approve class="form-control" placeholder=""%}
                     </div>

@@ -7,7 +7,6 @@ from app_ocsb.models import SyrupUsage
 
 class SyrupUsageForm(forms.ModelForm):
     """ Syrub Form """
-
     class Meta:
         """ Meta Data"""
         model = SyrupUsage
@@ -23,13 +22,14 @@ class SyrupUsageForm(forms.ModelForm):
             # คำนวณ (มีใน Form)
             'syrup_purity', 'rawsugar_purity', 'mollasses_purity',
             'sjm', 'actual_sugar_recovery','raw_sugar_tons_pol',
-            'raw_sugar_tons', 'ton_mollasses','density_indice',
-            # คำนวณ (ไม่มีมีใน Form)
+            'raw_sugar_tons', 'ton_mollasses',
+            ### คำนวณ (ไม่มีมีใน Form)
             #'ton_pol_syrup', 'ton_pol_rawsuger', 'ton_under_loss','ton_pol_mollasses',
             #'ton_pol_daily', 'ton_pol_mixed', 'ton_pol_filter',
             #'ton_pol_clearified', 'ton_raw_syrup', 'ratio_raw_cane',
             #'estimate_ton_can', 'efficiency_raw', 'efficiency_mollasses',
-            # คำนวณ (รอคุณหน่องแจ้งอีกที)
+            #'density_indice',
+            ### คำนวณ (รอคุณหน่องแจ้งอีกที)
             #'raw_sugar_tons_ent', 'ton_mollasses_ent', 'diff_raw_sugar', 'diff_ton_mollasses',
             ]
         widgets = {

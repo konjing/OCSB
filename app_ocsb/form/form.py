@@ -18,7 +18,7 @@ class RequestFormStep1(ModelForm):
         fields = [  'user', 'date_request', 'enterprise', 'no_enterprise', \
         'no_request', 'total_syrup', 'total_cmolasses', 'is_season', \
         'season', 'total_bmolasses', 'total_amount', 'purchasers', \
-        'file_request', 'file_sitevisit', 'file_survey', 'file_approve'
+        'file_request',
         ]
         widget = {
             "purchasers": PurchaserWidget,
