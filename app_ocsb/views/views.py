@@ -12,7 +12,7 @@ from app_base.decorators import allowed_users
 
 # Create your views here.
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ent_officer', 'ocsb_officer'])
+@allowed_users(allowed_roles=['admin', 'ent_officer'])
 def request_index_view(request):
     """ View for Index Quota Request """
     user_group = None
@@ -24,10 +24,8 @@ def request_index_view(request):
             enterprise_list.append(record.id) #ใส่ enterprise_id ทั้งหมดเข้า enterprise_list
         # กรองการแสดงรายการคำขอฯ
         if user_group == 'admin': #ทุกรายการ
-            queryset = QuotaRequest.objects.filter(season__is_active=True)
-        elif user_group == 'ocsb_officer': #ตามกลุ่มผู้ใช้ สถานะ และสปก.
-            queryset = QuotaRequest.objects.filter(season__is_active=True)
-        elif user_group == 'ent_officer': #ตามกลุ่มผู้ใช้ สถานะ และสปก.
+            queryset = QuotaRequest.objects.filter(season__is_active=True)        
+        elif user_group == 'ent_officer': #กลุ่มเจ้าหน้าที่โรงงาน
             queryset = QuotaRequest.objects.filter(enterprise__in=enterprise_list)\
                 .filter(season__is_active=True)
         else:

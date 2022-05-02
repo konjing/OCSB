@@ -14,7 +14,7 @@ from app_base.decorators import allowed_users
 
 # Create your views here
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ocsb_officer', 'ent_officer'])
+@allowed_users(allowed_roles=['admin', 'ent_officer'])
 def list_usage_view(request):
     """ Show Request list (Active) """
     user_enterprise = request.user.user_profile.enterprises.all()
@@ -30,8 +30,8 @@ def list_usage_view(request):
 
 @login_required(login_url='login')
 @allowed_users(
-    allowed_roles=['admin', 'ocsb_officer', 'ent_officer', 'district_officer',
-    'pdmo_officer', 'ksc_officer'])
+    allowed_roles=['admin', 'ent_officer', 'ocsb_officer', 'district_officer',
+    'sugarzone_officer', 'bio_officer'])
 def list_syrubusage_view(request):
     """ Show Usage Syrub list """
     user_group = None
@@ -53,10 +53,10 @@ def list_syrubusage_view(request):
         elif user_group == 'district_officer': #เจ้าหน้าที่ เขต
             queryset = SyrupUsage.objects.filter(workflow_state__in=[3]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'pdmo_officer': #เจ้าหน้าที่ สบน.
+        elif user_group == 'sugarzone_officer': #เจ้าหน้าที่ สบน.
             queryset = SyrupUsage.objects.filter(workflow_state__in=[4]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'ksc_officer': #เจ้าหน้าที่ กสช.
+        elif user_group == 'bio_officer': #เจ้าหน้าที่ กสช.
             queryset = SyrupUsage.objects.filter(workflow_state__in=[5]).\
                 filter(enterprise__in=enterprise_list)
         else:
@@ -164,8 +164,8 @@ def create_usage_view(request, request_id):
 
 @login_required(login_url='login')
 @allowed_users(
-    allowed_roles=['admin', 'ocsb_officer', 'ent_officer', 'district_officer',
-    'pdmo_officer', 'ksc_officer'])
+    allowed_roles=['admin', 'ent_officer', 'ocsb_officer', 'district_officer',
+    'sugarzone_officer', 'bio_officer'])
 def detail_usage_view(request, usage_id):
     """ Detail Syrup Usage """
     usage_object = get_object_or_404(SyrupUsage, pk=usage_id)
@@ -181,7 +181,7 @@ def detail_usage_view(request, usage_id):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ocsb_officer', 'ent_officer'])
+@allowed_users(allowed_roles=['admin', 'ent_officer'])
 def update_usage_view(request, usage_id):
     """  Update Syrup Usage """
     usage_object = get_object_or_404(SyrupUsage, pk=usage_id)
