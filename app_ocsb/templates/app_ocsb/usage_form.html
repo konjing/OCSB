@@ -81,7 +81,7 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.undetermine_loss.id_for_label }}">{{ form.undetermine_loss.label }}</label>
-                        {% render_field form.undetermine_loss class="form-control" placeholder=""%}
+                        {% render_field form.undetermine_loss class="form-control" placeholder="" min=0 %}
                       </div>
                     </div>
                     <!-- /.col -->
@@ -99,14 +99,14 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.syrup_weight.id_for_label }}">{{ form.syrup_weight.label }}</label>
-                        {% render_field form.syrup_weight class="form-control" placeholder=""%}
+                        {% render_field form.syrup_weight class="form-control" placeholder="หน่วยตัน" min=0%}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.theoretical.id_for_label }}">{{ form.theoretical.label }}</label>
-                        {% render_field form.theoretical class="form-control" placeholder=""%}
+                        {% render_field form.theoretical class="form-control" placeholder="" min=0 max=100%}
                       </div>
                     </div>
                     <!-- /.col -->
@@ -121,14 +121,14 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.syrup_brix.id_for_label }}">{{ form.syrup_brix.label }}</label>
-                        {% render_field form.syrup_brix class="form-control" placeholder=""%}
+                        {% render_field form.syrup_brix class="form-control" placeholder="ระบุค่าระหว่าง 57 - 90" min=57 max=90%}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.syrup_pol.id_for_label }}">{{ form.syrup_pol.label }}</label>
-                        {% render_field form.syrup_pol class="form-control" placeholder=""%}
+                        {% render_field form.syrup_pol class="form-control" placeholder="" min=0%}
                       </div>
                     </div>
                     <!-- /.col -->
@@ -160,14 +160,14 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.rawsugar_pol.id_for_label }}">{{ form.rawsugar_pol.label }}</label>
-                        {% render_field form.rawsugar_pol class="form-control" placeholder=""%}
+                        {% render_field form.rawsugar_pol class="form-control" placeholder="" min=0 max=100 %}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.rawsugar_moisture.id_for_label }}">{{ form.rawsugar_moisture.label }}</label>
-                        {% render_field form.rawsugar_moisture class="form-control" placeholder=""%}
+                        {% render_field form.rawsugar_moisture class="form-control" placeholder="" min=0 max=100 %}
                       </div>
                     </div>
                     <!-- /.col -->
@@ -185,14 +185,14 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.mollasses_brix.id_for_label }}">{{ form.mollasses_brix.label }}</label>
-                        {% render_field form.mollasses_brix class="form-control" placeholder=""%}
+                        {% render_field form.mollasses_brix class="form-control" placeholder="ระบุค่าระหว่าง 57 - 90" min=57 max=90%}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.mollasses_pol.id_for_label }}">{{ form.mollasses_pol.label }}</label>
-                        {% render_field form.mollasses_pol class="form-control" placeholder=""%}
+                        {% render_field form.mollasses_pol class="form-control" placeholder="" min=0 %}
                       </div>
                     </div>
                     <!-- /.col -->
@@ -247,28 +247,28 @@
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.daily_cane_input.id_for_label }}">{{ form.daily_cane_input.label }}</label>
-                        {% render_field form.daily_cane_input class="form-control" placeholder=""%}
+                        {% render_field form.daily_cane_input class="form-control" placeholder="" min=0 %}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.pol_in_can.id_for_label }}">{{ form.pol_in_can.label }}</label>
-                        {% render_field form.pol_in_can class="form-control" placeholder=""%}
+                        {% render_field form.pol_in_can class="form-control" placeholder="" min=0 max=100 %}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.pol_extraction.id_for_label }}">{{ form.pol_extraction.label }}</label>
-                        {% render_field form.pol_extraction class="form-control" placeholder=""%}
+                        {% render_field form.pol_extraction class="form-control" placeholder="" min=0 max=100 %}
                       </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-md-3">
                       <div class="form-group">
                         <label for="{{ form.loss_filter_cake.id_for_label }}">{{ form.loss_filter_cake.label }}</label>
-                        {% render_field form.loss_filter_cake class="form-control" placeholder=""%}
+                        {% render_field form.loss_filter_cake class="form-control" placeholder="" min=0 max=100 %}
                       </div>
                     </div>
                     <!-- /.col -->

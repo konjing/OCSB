@@ -40,16 +40,16 @@
                   <tr class="table-danger">
                   {% endif %}
                     <td>{{ record.date_request }}</td>
-                    <td>{{ record.season }} (ครั้งที่ {{ record.season_round }})</td>
+                    <td>{{ record.season }}</td>
                     <td>{{ record.no_request }}</td>
                     <td>{{ record.enterprise }}</td>
                     <td>{{ record.no_enterprise }}</td>
                     <td>{{ record.total_amount }}</td>
                     <td>{{ record.total_usage }}</td>                  
-                    <td><span class="badge bg-danger">{{ record.get_workflow_state_display }}</span></td>
+                    <td><span class="badge bg-info">{{ record.get_workflow_state_display }}</span></td>
                     <td>
                       <a href="{% url 'usage-form' record.id %}">
-                        <button type="button" class="btn btn-info">บันทึก</button>
+                        <button type="button" class="btn btn-primary">บันทึก</button>
                       </a>
                     </td>                  
                   </tr>

@@ -77,11 +77,11 @@
               </div>
               <div class="form-group">
                 <label for="{{ form.total_syrup.id_for_label }}">{{ form.total_syrup.label }}</label>
-                {% render_field form.total_syrup class="form-control" placeholder="หน่วยตัน"%}
+                {% render_field form.total_syrup class="form-control" placeholder="หน่วยตัน" min=0 %}
               </div>
               <div class="form-group">
                 <label for="{{ form.total_cmolasses.id_for_label }}">{{ form.total_cmolasses.label }}</label>
-                {% render_field form.total_cmolasses class="form-control" placeholder="หน่วยตัน"%}
+                {% render_field form.total_cmolasses class="form-control" placeholder="หน่วยตัน" min=0 %}
               </div>
               <div class="form-group">
                 <label for="{{ form.file_request.id_for_label }}">{{ form.file_request.label }}</label>
@@ -107,7 +107,7 @@
               </div>
               <div class="form-group">
                 <label for="{{ form.total_bmolasses.id_for_label }}">{{ form.total_bmolasses.label }}</label>
-                {% render_field form.total_bmolasses class="form-control" placeholder="หน่วยตัน"%}
+                {% render_field form.total_bmolasses class="form-control" placeholder="หน่วยตัน" min=0 %}
               </div>
               <div class="form-group">
                 <label for="{{ form.total_amount.id_for_label }}">{{ form.total_amount.label }}</label>

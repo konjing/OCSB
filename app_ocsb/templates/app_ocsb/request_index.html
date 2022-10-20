@@ -63,7 +63,7 @@
               <small> {{ record.total_usage_cmolasses }}/{{ record.total_cmolasses }} ({{ record.percen_usage_cmolasses }} %) </small>
             </td>
             <td class="project-state">
-              <span class="badge badge-success">{{ record.get_workflow_state_display }}</span>
+              <span class="badge badge-info">{{ record.get_workflow_state_display }}</span>
             </td>
             <td class="project-actions text-right">
               <a class="btn btn-primary btn-sm" href="{% url 'request-detail' record.id %}">

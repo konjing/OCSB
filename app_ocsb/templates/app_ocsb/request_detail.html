@@ -190,7 +190,7 @@
                   <td>{{ record.get_syrup_type_display }}</td>
                   <td>{{ record.quota_request }}</td>
                   <td>{{ record.syrup_weight }}</td>
-                  <td><span class="badge bg-danger">{{ record.get_workflow_state_display }}</span></td>
+                  <td><span class="badge bg-info">{{ record.get_workflow_state_display }}</span></td>
                   <td>
                     <a href="{% url 'usage-detail' record.id %}" target="_blank">
                       <button type="button" class="btn btn-primary mr-1">ตรวจสอบ</button>

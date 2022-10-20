@@ -96,7 +96,7 @@ def create_usage_view(request, request_id):
             syrup_usage = form.save(commit=False)
 
             # คำนวณ Density Indice
-            floor_brix = Decimal(floor(syrup_usage.syrup_brix * 10)/10)
+            floor_brix = round(Decimal(floor(syrup_usage.syrup_brix * 10)/10), 2)
             brix_bot = Brix.objects.get(brix_value=floor_brix)
             brix_top = Brix.objects.get(
                 brix_value=(floor_brix + Decimal('0.1')))
@@ -163,7 +163,7 @@ def create_usage_view(request, request_id):
             else:
                 return HttpResponse('Not Select Type')
 
-            return redirect('usage-list')
+            return redirect('syrubusage-list')
 
     context = {'form': form, 'request_object': request_object}
     return render(request, 'app_ocsb/usage_form.html', context)
@@ -200,7 +200,7 @@ def update_usage_view(request, usage_id):
                               request_id=request_id, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('usage-list')
+            return redirect('syrubusage-list')
 
     context = {'form': form, 'request_object': request_object}
     return render(request, 'app_ocsb/usage_form.html', context)
