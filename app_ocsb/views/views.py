@@ -24,7 +24,7 @@ def request_index_view(request):
             enterprise_list.append(record.id) #ใส่ enterprise_id ทั้งหมดเข้า enterprise_list
         # กรองการแสดงรายการคำขอฯ
         if user_group == 'admin': #ทุกรายการ
-            queryset = QuotaRequest.objects.filter(season__is_active=True)        
+            queryset = QuotaRequest.objects.filter(season__is_active=True)
         elif user_group == 'ent_officer': #กลุ่มเจ้าหน้าที่โรงงาน
             queryset = QuotaRequest.objects.filter(enterprise__in=enterprise_list)\
                 .filter(season__is_active=True)

@@ -30,8 +30,14 @@ def list_usage_view(request):
 
 @login_required(login_url='login')
 @allowed_users(
-    allowed_roles=['admin', 'ent_officer', 'ocsb_officer', 'district_officer',
-    'sugarzone_officer', 'bio_officer'])
+    allowed_roles=['admin', #เจ้าหน้าที่ ดูแลระบบ
+                   'ent_officer', #เจ้าหน้าที่ โรงงานน้ำตาล
+                   'ocsb_officer', #เจ้าหน้าที่ เจ้าหน้าที่ สอน.
+                   'district_officer', #เจ้าหน้าที่ เขต
+                   'sugarzone_officer', #เจ้าหน้าที่ สบน.
+                   'bio_officer' #เจ้าหน้าที่ กสช.
+                   ]
+)
 def list_syrubusage_view(request):
     """ Show Usage Syrub list """
     user_group = None
@@ -42,21 +48,21 @@ def list_syrubusage_view(request):
         for record in user_enterprise:
             enterprise_list.append(record.id)
         # กรองการแสดงรายการคำขอฯ
-        if user_group == 'admin': #ทุกรายการ
+        if user_group == 'admin':  # ทุกรายการ
             queryset = SyrupUsage.objects.all()
-        elif user_group == 'ent_officer': #เจ้าหน้าที่บริษัท
+        elif user_group == 'ent_officer':  # เจ้าหน้าที่บริษัท
             queryset = SyrupUsage.objects.filter(workflow_state__in=[0, 1, 6, 7]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'ocsb_officer': #เจ้าหน้าที่ สอน. ประจำโรงงาน
+        elif user_group == 'ocsb_officer':  # เจ้าหน้าที่ สอน. ประจำโรงงาน
             queryset = SyrupUsage.objects.filter(workflow_state__in=[2]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'district_officer': #เจ้าหน้าที่ เขต
+        elif user_group == 'district_officer':  # เจ้าหน้าที่ เขต
             queryset = SyrupUsage.objects.filter(workflow_state__in=[3]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'sugarzone_officer': #เจ้าหน้าที่ สบน.
+        elif user_group == 'sugarzone_officer':  # เจ้าหน้าที่ สบน.
             queryset = SyrupUsage.objects.filter(workflow_state__in=[4]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'bio_officer': #เจ้าหน้าที่ กสช.
+        elif user_group == 'bio_officer':  # เจ้าหน้าที่ กสช.
             queryset = SyrupUsage.objects.filter(workflow_state__in=[5]).\
                 filter(enterprise__in=enterprise_list)
         else:
@@ -86,13 +92,14 @@ def create_usage_view(request, request_id):
     if request.method == 'POST':
         form = SyrupUsageForm(request_id=request_id, data=request.POST)
         if form.is_valid():
-            #Save to table SyrupUsage
+            # Save to table SyrupUsage
             syrup_usage = form.save(commit=False)
 
-            #คำนวณ Density Indice
+            # คำนวณ Density Indice
             floor_brix = Decimal(floor(syrup_usage.syrup_brix * 10)/10)
             brix_bot = Brix.objects.get(brix_value=floor_brix)
-            brix_top = Brix.objects.get(brix_value=(floor_brix + Decimal('0.1')))
+            brix_top = Brix.objects.get(
+                brix_value=(floor_brix + Decimal('0.1')))
             diff_gravity = brix_top.spcific_gravity - brix_bot.spcific_gravity
             diff_brix = (syrup_usage.syrup_brix - round(floor_brix, 2)) * 10
             diff_gravity_value = diff_gravity * diff_brix
@@ -102,13 +109,13 @@ def create_usage_view(request, request_id):
             syrup_usage.syrup_valume = round(
                 syrup_usage.density_indice / syrup_usage.syrup_weight, 2)
             syrup_usage.ton_pol_syrup = round(
-                syrup_usage.syrup_weight * syrup_usage.syrup_pol /100, 2)
-            syrup_usage.ton_pol_rawsuger= round(
+                syrup_usage.syrup_weight * syrup_usage.syrup_pol / 100, 2)
+            syrup_usage.ton_pol_rawsuger = round(
                 syrup_usage.raw_sugar_tons_pol, 2)
             syrup_usage.ton_under_loss = round(
                 syrup_usage.undetermine_loss / 100 * syrup_usage.ton_pol_syrup, 2)
             syrup_usage.ton_pol_mollasses = round(
-                syrup_usage.ton_pol_syrup - syrup_usage.ton_pol_rawsuger - \
+                syrup_usage.ton_pol_syrup - syrup_usage.ton_pol_rawsuger -
                 syrup_usage.ton_under_loss, 2)
             syrup_usage.ton_mollasses = round(
                 syrup_usage.ton_pol_mollasses / (syrup_usage.mollasses_pol/100), 2)
@@ -135,21 +142,21 @@ def create_usage_view(request, request_id):
             syrup_usage.create_user = request.user
             syrup_usage.save()
 
-            #ปรับปรุงตัวเลขการใช้น้ำเชื่อมในตาราง QuotaRequest
+            # ปรับปรุงตัวเลขการใช้น้ำเชื่อมในตาราง QuotaRequest
             total_syrup_before = request_object.total_usage_syrup
             total_bmolasses_before = request_object.total_usage_bmolasses
             total_cmolasses_before = request_object.total_usage_cmolasses
 
             usage_type = syrup_usage.syrup_type
-            if usage_type == 1: #Syrup
+            if usage_type == 1:  # Syrup
                 total_syrup_after = total_syrup_before + syrup_usage.syrup_weight
                 request_object.total_usage_syrup = total_syrup_after
                 request_object.save()
-            elif usage_type == 2: #B-molasses
+            elif usage_type == 2:  # B-molasses
                 total_bmolasses_after = total_bmolasses_before + syrup_usage.syrup_weight
                 request_object.total_usage_bmolasses = total_bmolasses_after
                 request_object.save()
-            elif usage_type == 3: #C-molasses
+            elif usage_type == 3:  # C-molasses
                 total_cmolasses_after = total_cmolasses_before + syrup_usage.syrup_weight
                 request_object.total_usage_cmolasses = total_cmolasses_after
                 request_object.save()
@@ -165,7 +172,7 @@ def create_usage_view(request, request_id):
 @login_required(login_url='login')
 @allowed_users(
     allowed_roles=['admin', 'ent_officer', 'ocsb_officer', 'district_officer',
-    'sugarzone_officer', 'bio_officer'])
+                   'sugarzone_officer', 'bio_officer'])
 def detail_usage_view(request, usage_id):
     """ Detail Syrup Usage """
     usage_object = get_object_or_404(SyrupUsage, pk=usage_id)

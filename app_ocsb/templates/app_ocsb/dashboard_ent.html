@@ -4,7 +4,7 @@
 {% block stylesheet %} {% endblock stylesheet %}
 
 <!-- Block page_header -->
-{% block page_header %}DashBoard (โรงงาน){% endblock page_header %}
+{% block page_header %}DashBoard {% endblock page_header %}
 
 <!-- Block page_header -->
 {% block main_content %}
@@ -13,7 +13,7 @@
     {% for request_record in queryset %}
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">ปีการผลิตที่ {{ request_record.season }} รอบที่ {{ request_record.season_round }}</h3>
+        <h3 class="card-title">ปีการผลิตที่ {{ request_record.season }} เลขที่ {{ request_record.no_request }}</h3>
         <div class="card-tools">
           <button type="button" class="btn btn-tool" data-card-widget="collapse">
             <i class="fas fa-minus"></i>

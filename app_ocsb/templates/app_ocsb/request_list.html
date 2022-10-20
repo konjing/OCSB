@@ -39,7 +39,8 @@
                 {% for record in queryset %}
                 <tr>
                   <td>{{ record.date_request }}</td>
-                  <td>{{ record.season }} (ครั้งที่ {{ record.season_round }})</td>
+                  {% comment %} <td>{{ record.season }} (ครั้งที่ {{ record.season_round }})</td> {% endcomment %}
+                  <td>{{ record.season }}</td>
                   <td>{{ record.no_request }}</td>
                   <td>{{ record.enterprise }}</td>
                   <td>{{ record.no_enterprise }}</td>

@@ -37,7 +37,8 @@
                   <div class="info-box bg-light">
                     <div class="info-box-content">
                       <span class="info-box-text text-center text-muted">ฤดูกาลผลิต</span>
-                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.season }} (ครั้งที่ {{ query_object.season_round }})</span>
+                      {% comment %} <span class="info-box-number text-center text-muted mb-0">{{ query_object.season }} (ครั้งที่ {{ query_object.season_round }})</span> {% endcomment %}
+                      <span class="info-box-number text-center text-muted mb-0">{{ query_object.season }}</span>
                     </div>
                   </div>
                 </div>

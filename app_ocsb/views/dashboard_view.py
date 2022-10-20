@@ -12,10 +12,13 @@ from app_ocsb.models import QuotaRequest, SyrupUsage
 def dashboard_ent_view(request):
     """ View for Enterprise Dashboard """
     user_enterprise = request.user.user_profile.enterprises.all()[0].id
-    queryset = QuotaRequest.objects.filter(enterprise=user_enterprise).filter(is_active=1)
+    # queryset Show only QuotaRequest is Active & status=Accept
+    queryset = QuotaRequest.objects.filter(enterprise=user_enterprise)\
+        .filter(is_active=1).filter(workflow_state=4)
     queryset_usage = SyrupUsage.objects.filter(enterprise=user_enterprise)\
         .filter(is_active=1).order_by('create_date')[:10]
-    queryset_sum_usage = SyrupUsage.objects.values('purchaser__name')\
+    queryset_sum_usage = SyrupUsage.objects.filter(enterprise=user_enterprise)\
+        .values('purchaser__name')\
         .annotate(Sum('syrup_weight'))
 
     context = {
