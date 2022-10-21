@@ -127,7 +127,7 @@ def request_update_view(request, request_id):
         if form.is_valid():
             form.save()
             sweetify.success(request, 'แก้ไขคำขออนุญาตฯ สำเร็จ')
-            return redirect('request-detail')
+            return redirect('request-list')
 
     user_group = request.user.groups.all()[0].name
     user_enterprise = request.user.user_profile.enterprises.all()[0]

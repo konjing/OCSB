@@ -34,8 +34,8 @@ def list_usage_view(request):
                    'ent_officer', #เจ้าหน้าที่ โรงงานน้ำตาล
                    'ocsb_officer', #เจ้าหน้าที่ เจ้าหน้าที่ สอน.
                    'district_officer', #เจ้าหน้าที่ เขต
-                   'sugarzone_officer', #เจ้าหน้าที่ สบน.
-                   'bio_officer' #เจ้าหน้าที่ กสช.
+                   'pdmo_officer', #เจ้าหน้าที่ สบน.
+                   'bio_officer' #เจ้าหน้าที่กลุ่มส่งเสริมอุตสาหกรรมชีวภาพ (กสช)
                    ]
 )
 def list_syrubusage_view(request):
@@ -50,8 +50,8 @@ def list_syrubusage_view(request):
         # กรองการแสดงรายการคำขอฯ
         if user_group == 'admin':  # ทุกรายการ
             queryset = SyrupUsage.objects.all()
-        elif user_group == 'ent_officer':  # เจ้าหน้าที่บริษัท
-            queryset = SyrupUsage.objects.filter(workflow_state__in=[0, 1, 6, 7]).\
+        elif user_group == 'ent_officer':  # เจ้าหน้าที่บริษัท filter(workflow_state__in=[0, 1, 6, 7])
+            queryset = SyrupUsage.objects.\
                 filter(enterprise__in=enterprise_list)
         elif user_group == 'ocsb_officer':  # เจ้าหน้าที่ สอน. ประจำโรงงาน
             queryset = SyrupUsage.objects.filter(workflow_state__in=[2]).\
@@ -59,7 +59,7 @@ def list_syrubusage_view(request):
         elif user_group == 'district_officer':  # เจ้าหน้าที่ เขต
             queryset = SyrupUsage.objects.filter(workflow_state__in=[3]).\
                 filter(enterprise__in=enterprise_list)
-        elif user_group == 'sugarzone_officer':  # เจ้าหน้าที่ สบน.
+        elif user_group == 'pdmo_officer':  # เจ้าหน้าที่ สบน.
             queryset = SyrupUsage.objects.filter(workflow_state__in=[4]).\
                 filter(enterprise__in=enterprise_list)
         elif user_group == 'bio_officer':  # เจ้าหน้าที่ กสช.
@@ -172,7 +172,7 @@ def create_usage_view(request, request_id):
 @login_required(login_url='login')
 @allowed_users(
     allowed_roles=['admin', 'ent_officer', 'ocsb_officer', 'district_officer',
-                   'sugarzone_officer', 'bio_officer'])
+                   'pdmo_officer', 'bio_officer'])
 def detail_usage_view(request, usage_id):
     """ Detail Syrup Usage """
     usage_object = get_object_or_404(SyrupUsage, pk=usage_id)

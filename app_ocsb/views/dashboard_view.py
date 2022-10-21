@@ -8,7 +8,7 @@ from app_ocsb.models import QuotaRequest, SyrupUsage
 
 # Create your views here.
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin', 'ent_officer', 'ocsb_officer'])
+# @allowed_users(allowed_roles=['admin', 'ent_officer', 'ocsb_officer'])
 def dashboard_ent_view(request):
     """ View for Enterprise Dashboard """
     user_enterprise = request.user.user_profile.enterprises.all()[0].id

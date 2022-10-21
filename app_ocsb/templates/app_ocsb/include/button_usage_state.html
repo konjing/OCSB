@@ -79,7 +79,7 @@
 {% endif %}
 
 {% comment %} ยืนยัน/รับทราบโดย เจ้าหน้าที่ กสช. {% endcomment %}
-{% if user_group == 'ksc_officer' %}
+{% if user_group == 'bio_officer' %}
   {% if workflow_state == 5 %}
   <a href="{% url 'usage-state-review5' usage_id %}">
     <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
@@ -87,7 +87,7 @@
   </a>
   <a href="{% url 'usage-state-reject' usage_id %}">
       <button type="button" class="btn btn-primary float-right" style="margin-right: 5px">
-          <i class="fas fa-download"></i> ส่งแก้ไข</button>
+          <i class="fas fa-download"></i>ส่งแก้ไข</button>
   </a>
   {% endif %}
 {% endif %}
